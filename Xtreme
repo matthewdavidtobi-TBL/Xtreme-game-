@@ -1,17 +1,18 @@
-XTREME INSTALLABLE WEB APP (PWA)
+icon-192.svg
+icon-512.svg
+manifest.json
+index.html
+XTREME - GitHub Pages ready
 
-This build can be installed on Android and iPhone/iPad from a web browser and opens like an app.
+Upload these files directly into the root of your GitHub repository:
+index.html
+manifest.json
+sw.js
+icon-192.svg
+icon-512.svg
 
-IMPORTANT:
-A PWA must be hosted over HTTPS (or localhost) for service-worker installation.
-
-Android:
-1. Put these files on an HTTPS website.
-2. Open the site in Chrome.
-3. Use the browser menu -> "Install app" / "Add to Home screen".
-
-iPhone/iPad:
-1. Open the HTTPS site in Safari.
-2. Tap Share -> "Add to Home Screen".
-
-The game data is currently stored locally on the device. Online accounts, cloud leaderboards, payments and store publishing are not included yet.
+Then enable GitHub Pages from Settings > Pages > Deploy from branch > main > /(root).
+const CACHE="xtreme-v1";
+const ASSETS=["./","./index.html","./manifest.webmanifest","./icon-192.svg","./icon-512.svg"];
+self.addEventListener("install",e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS))));
+self.addEventListener("fetch",e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))));
